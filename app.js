@@ -31,7 +31,7 @@ const gameBoard = (function() {
     /*temporary declaration*/
     players[0] = Player("jeff", "X");
     players[1] = Player("dylan", "O");
-    // let currentPlayer = players[PLAYER_KEY];
+    //let currentPlayer = players[PLAYER_KEY];
     
     const _playerSwitch = (PLAYER_KEY) => {
         return (1 - PLAYER_KEY);
@@ -44,20 +44,16 @@ const gameBoard = (function() {
         console.log(`second player is ${players[1].name}, mark: ${players[1].mark}`);
 
         _gridItems.forEach(element => {
-            element.addEventListener('click', () => {
-                _gameControl(element);
-            });
+            element.addEventListener('click', _gameControl);
         });
     }
 
-    const _gameControl = (element) => {
+    function _gameControl() {
         let currentPlayer = players[PLAYER_KEY];
         const _currentMark = currentPlayer.mark;
-        element.textContent = `${_currentMark}`;
-        element.removeEventListener('click', );
-        console.log(`id of clicked element is ${element.id}`); //works
-        console.log("typeof element.id is ",typeof +element.id); //works
-        currentPlayer.playerPos.push(+element.id); //doesn't work -- why??
+        this.textContent = `${_currentMark}`;
+        currentPlayer.playerPos.push(+this.id);
+        this.removeEventListener('click', _gameControl);
         console.log(currentPlayer.playerPos);
         if(currentPlayer.isWinner()) {
             _closeGame(currentPlayer);
@@ -69,28 +65,8 @@ const gameBoard = (function() {
     }
 
     const _closeGame = (currentPlayer) => {
-        alert(`${currentPlayer} won the game!`);
+        alert(`${currentPlayer.name} won the game!`);
     }
     _gameInit();
-    return { players } //do we even have to make ANYTHING as public?
+    //return { players } //we don't need anything outside module..
 })();
-
-
-
-
-
-
-
-// player1.playerPos.push(1);
-// console.log(player1.playerPos);
-// console.log(player1.isWinner());
-// player1.playerPos.push(4);
-// console.log(player1.playerPos);
-// player1.playerPos.push(6);
-// console.log(player1.playerPos);
-// console.log(player1.isWinner());
-// player1.playerPos.push(7);
-// console.log(player1.playerPos);
-// console.log(player1.isWinner());
-
-
